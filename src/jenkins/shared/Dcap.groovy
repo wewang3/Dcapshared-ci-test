@@ -2,7 +2,7 @@
 // Copyright (c) Open Enclave SDK contributors.
 // Licensed under the MIT License.
 
-package jenkins.common;
+package jenkins.shared;
 
 String dockerBuildArgs(String... args) {
     String argumentString = ""
@@ -18,7 +18,7 @@ String dockerImage(String tag, String dockerfile = ".jenkins/Dockerfile", String
 
 def ContainerRun(String imageName, String compiler, String task, String runArgs="") {
     exec_with_retry(10,300){
-        docker.withRegistry("https://oejenkinscidockerregistry.azurecr.io", "oejenkinscidockerregistry") {
+        docker.withRegistry("https://dcapdockerciregistry.azurecr.io", "dcapdockerciregistry") {
             def image = docker.image(imageName)
             image.pull()
             image.inside(runArgs) {
